@@ -3,7 +3,7 @@ import { defineStore } from "pinia";
 export const useRecipesStore = defineStore("recipes", {
   state: () => ({
     recipes: JSON.parse(localStorage.getItem("recipes")) || [],
-    selectedIngredients: [], // Для фильтрации
+    selectedIngredients: [],
   }),
   actions: {
     addRecipe(recipe) {
