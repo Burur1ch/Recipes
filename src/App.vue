@@ -1,14 +1,12 @@
 <template>
   <div>
-    <MainHeader/>
-    <router-view />
+    <MainHeader/> 
+ <router-view /> 
   </div>
 </template>
 
 <script setup>
-import MainHeader from './components/MainHeader.vue';
+import MainHeader from './components/MainHeader.vue'
 </script>
 
-<style>
-
-</style>
+<style></style>
