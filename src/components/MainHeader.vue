@@ -1,16 +1,16 @@
 <template>
-  <header class="fixed z-10 w-full bg-amber-100 h-16 flex justify-between items-center px-6 shadow-md">
-    <!-- Логотип -->
+  <header class="fixed z-10 w-full bg-amber-100 h-16 flex justify-between items-center px-5 shadow-md">
+
     <router-link to="/" class="text-xl font-bold hover:scale-110 transition">
-      🔥 Recipes 🔥
+      🔥Recipes🔥
     </router-link>
 
-    <!-- Поиск + Навигация -->
+    
     <div class="flex items-center gap-4">
-      <!-- Кнопка поиска (мобильная версия) -->
+      
       <button class="md:hidden text-xl" @click="toggleSearch">🔍</button>
 
-<!-- Поиск (десктоп) -->
+
 <div v-if="!isSearchOpen" class="relative w-64 hidden md:block">
   <input
     v-model="searchQuery"
@@ -25,7 +25,7 @@
 </div>
 
 
-      <!-- Навигация -->
+   
       <nav class="hidden md:flex gap-6 text-gray-700 text-lg">
         <router-link to="/random" class="hover:text-black transition" exact-active-class="text-black font-bold">
           Случайное
@@ -38,11 +38,11 @@
         </router-link>
       </nav>
 
-      <!-- Бургер-меню -->
+      
       <button class="md:hidden text-2xl" @click="toggleMenu">☰</button>
     </div>
 
-    <!-- Мобильное меню -->
+ 
     <transition name="slide">
       <ul
         v-if="isMenuOpen"
@@ -60,7 +60,7 @@
       </ul>
     </transition>
 
-    <!-- Поле поиска для мобильной версии -->
+    
     <transition name="fade">
       <div v-if="isSearchOpen" class="absolute top-16 left-0 w-full bg-white shadow-md p-4 flex items-center">
         <input
@@ -95,13 +95,12 @@ const toggleSearch = () => {
 const search = () => {
   if (searchQuery.value.trim()) {
     router.push({ name: "search", query: { q: searchQuery.value } });
-    isSearchOpen.value = false; // Закрываем поле после поиска
+    isSearchOpen.value = false; 
   }
 };
 </script>
 
 <style scoped>
-/* Анимация появления мобильного меню */
 .slide-enter-active,
 .slide-leave-active {
   transition: transform 0.3s ease-out, opacity 0.3s ease-out;
