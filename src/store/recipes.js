@@ -19,5 +19,9 @@ export const useRecipesStore = defineStore("recipes", {
         recipe.ingredients.some((ing) => this.selectedIngredients.includes(ing.name))
       );
     },
+    removeRecipe(id) {
+      this.recipes = this.recipes.filter(item => item.id !== id);
+      localStorage.setItem("recipes", JSON.stringify(this.recipes));
+    }
   },
 });
