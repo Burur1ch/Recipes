@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto px-4 p-20">
+  <div class="container mx-auto px-4 p-20 h-screen">
     <h1 class="text-4xl font-bold text-gray-900 text-center mb-6">📌Все рецепты</h1>
 
     <!-- Фильтры -->
@@ -37,7 +37,6 @@
         <p class="text-gray-500 text-lg mb-3">
           Категория: <span class="font-semibold text-amber-600">{{ recipe.category }}</span>
         </p>
-        <p v-if="recipe.carbs">Калории: {{ recipe.carbs }}</p>
         <p class="text-gray-700 text-base line-clamp-2">{{ recipe.description }}</p>
 
         <router-link :to="'/recipe/' + recipe.id" class="mt-4 inline-block bg-amber-500 text-white px-5 py-3 rounded-lg shadow-md hover:bg-amber-600 transition">
@@ -75,48 +74,43 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRecipesStore } from '@/store/recipes'
 
 const store = useRecipesStore()
 const showModal = ref(false)
 
-// Фильтры
 const selectedCategory = ref('')
 const selectedIngredients = ref([])
 const selectedCalories = ref('')
 
-// Получаем уникальные категории
 const categories = computed(() => [...new Set(store.recipes.map((recipe) => recipe.category))])
 
-// Получаем уникальные ингредиенты
 const uniqueIngredients = computed(() => {
   return [...new Set(store.recipes.flatMap((recipe) => recipe.ingredients.map((ing) => ing.name)))]
 })
 
-// Фильтрация рецептов
 const filteredRecipes = computed(() => {
   return store.recipes.filter((recipe) => {
     const categoryMatch = selectedCategory.value ? recipe.category === selectedCategory.value : true
     const ingredientMatch = selectedIngredients.value.length
       ? selectedIngredients.value.every((ingredient) => recipe.ingredients.some((ing) => ing.name === ingredient))
       : true
-    const caloriesMatch = selectedCalories.value
-      ? recipe.carbs && recipe.carbs <= parseInt(selectedCalories.value)
-      : true
 
-    return categoryMatch && ingredientMatch && caloriesMatch
+    return categoryMatch && ingredientMatch
   })
 })
+onMounted(() => {
+  store.loadRecipes()
+})
 
-// Очистка выбора ингредиентов
 const clearIngredients = () => {
   selectedIngredients.value = []
 }
 </script>
 
 <style scoped>
-/* Ограничение количества строк */
+
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;

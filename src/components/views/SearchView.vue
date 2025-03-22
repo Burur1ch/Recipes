@@ -23,7 +23,7 @@ import { useRecipesStore } from "@/store/recipes";
 const route = useRoute();
 const store = useRecipesStore();
 
-const query = computed(() => route.query.q); // Получаем параметр ?q= из URL
+const query = computed(() => route.query.q);
 
 const filteredRecipes = computed(() => {
   if (!query.value) return [];

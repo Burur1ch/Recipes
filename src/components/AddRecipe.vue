@@ -8,13 +8,11 @@
       <h2 class="text-2xl font-bold mb-4">Добавить рецепт</h2>
 
       <form @submit.prevent="addNewRecipe">
-        <!-- Название рецепта -->
         <div class="mb-4">
           <label class="block font-semibold">Название рецепта:</label>
           <input v-model="title" type="text" class="w-full p-2 border rounded-md" required />
         </div>
 
-        <!-- Загрузка картинки -->
         <div class="mb-4">
           <label class="block font-semibold">Картинка:</label>
           <input
@@ -26,7 +24,6 @@
           <img v-if="imagePreview" :src="imagePreview" class="mt-2 max-h-40 rounded-md" />
         </div>
 
-        <!-- Выбор категории -->
         <div class="mb-4">
           <label class="block font-semibold">Категория:</label>
           <select v-model="category" class="w-full p-2 border rounded-md">
@@ -35,7 +32,6 @@
           </select>
         </div>
 
-        <!-- Ингредиенты -->
         <div class="mb-4">
           <label class="block font-semibold">Ингредиенты:</label>
           <div v-for="(ing, index) in ingredients" :key="index" class="flex gap-2 mb-2">
@@ -65,30 +61,10 @@
           </button>
         </div>
 
-        <!-- БЖУ и калории -->
-        <div class="mb-4 grid grid-cols-2 gap-4">
-          <div>
-            <label class="block font-semibold">Калории (ккал):</label>
-            <input v-model="calories" type="number" class="w-full p-2 border rounded-md" />
-          </div>
-          <div>
-            <label class="block font-semibold">Белки (г):</label>
-            <input v-model="protein" type="number" class="w-full p-2 border rounded-md" />
-          </div>
-          <div>
-            <label class="block font-semibold">Жиры (г):</label>
-            <input v-model="fats" type="number" class="w-full p-2 border rounded-md" />
-          </div>
-          <div>
-            <label class="block font-semibold">Углеводы (г):</label>
-            <input v-model="carbs" type="number" class="w-full p-2 border rounded-md" />
-          </div>
-        </div>
 
-        <!-- Описание -->
         <div class="mb-4">
           <label class="block font-semibold">Описание:</label>
-          <textarea v-model="description" class="w-full p-2 border rounded-md" rows="4"></textarea>
+          <textarea v-model="description" class="w-full p-2 border rounded-md" rows="3"></textarea>
         </div>
 
         <button
@@ -115,11 +91,6 @@ const category = ref('')
 const description = ref('')
 const ingredients = ref([{ name: '', amount: '', unit: 'г' }])
 
-// БЖУ и калории
-const calories = ref('')
-const protein = ref('')
-const fats = ref('')
-const carbs = ref('')
 
 const categories = ['Завтраки', 'Обеды', 'Ужины', 'Десерты', 'Закуски', 'Напитки']
 
@@ -153,10 +124,6 @@ const addNewRecipe = () => {
     category: category.value,
     ingredients: ingredients.value,
     description: description.value,
-    calories: calories.value,
-    protein: protein.value,
-    fats: fats.value,
-    carbs: carbs.value,
   }
 
   store.addRecipe(newRecipe)
@@ -167,9 +134,5 @@ const addNewRecipe = () => {
   category.value = ''
   ingredients.value = [{ name: '', amount: '', unit: 'г' }]
   description.value = ''
-  calories.value = ''
-  protein.value = ''
-  fats.value = ''
-  carbs.value = ''
 }
 </script>
