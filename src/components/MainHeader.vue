@@ -111,7 +111,6 @@ const search = () => {
   opacity: 0;
 }
 
-/* Анимация появления поиска */
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.3s ease-out;

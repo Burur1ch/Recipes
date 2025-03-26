@@ -14,7 +14,7 @@ export const useRecipesStore = defineStore("recipes", {
           title: recipe.title,
           image: recipe.image,
           category: recipe.category,
-          ingredients: JSON.stringify(recipe.ingredients), // Проверяем JSON
+          ingredients: JSON.stringify(recipe.ingredients), 
           description: recipe.description,
         }])
         .select("*");
