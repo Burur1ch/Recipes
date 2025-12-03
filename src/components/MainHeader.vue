@@ -1,48 +1,57 @@
 <template>
-  <header class="fixed z-10 w-full bg-amber-100 h-16 flex justify-between items-center px-5 shadow-md">
-
+  <header
+    class="fixed z-10 w-full bg-amber-100 h-16 flex justify-between items-center px-5 shadow-md"
+  >
     <router-link to="/" class="text-xl font-bold hover:scale-110 transition">
-      🔥Recipes🔥
+      🔥Рецепты🔥
     </router-link>
 
-    
     <div class="flex items-center gap-4">
-      
       <button class="md:hidden text-xl" @click="toggleSearch">🔍</button>
 
+      <div v-if="!isSearchOpen" class="relative w-64 hidden md:block">
+        <input
+          v-model="searchQuery"
+          placeholder="Найти рецепт"
+          type="text"
+          @keyup.enter="search"
+          class="w-full p-2 pl-4 pr-10 border rounded-full focus:ring-2 focus:ring-white transition"
+        />
+        <button
+          @click="search"
+          class="absolute right-3 top-1/2 -translate-y-1/2 hover:scale-110 transition"
+        >
+          🔍
+        </button>
+      </div>
 
-<div v-if="!isSearchOpen" class="relative w-64 hidden md:block">
-  <input
-    v-model="searchQuery"
-    placeholder="Найти рецепт"
-    type="text"
-    @keyup.enter="search"
-    class="w-full p-2 pl-4 pr-10 border rounded-full focus:ring-2 focus:ring-white transition"
-  />
-  <button @click="search" class="absolute right-3 top-1/2 -translate-y-1/2 hover:scale-110 transition">
-    🔍
-  </button>
-</div>
-
-
-   
       <nav class="hidden md:flex gap-6 text-gray-700 text-lg">
-        <router-link to="/random" class="hover:text-black transition" exact-active-class="text-black font-bold">
+        <router-link
+          to="/random"
+          class="hover:text-black transition"
+          exact-active-class="text-black font-bold"
+        >
           Случайное
         </router-link>
-        <router-link to="/favorites" class="hover:text-black transition" exact-active-class="text-black font-bold">
+        <router-link
+          to="/favorites"
+          class="hover:text-black transition"
+          exact-active-class="text-black font-bold"
+        >
           Избранное
         </router-link>
-        <router-link to="/addRecipe" class="hover:text-red-500 transition" exact-active-class="text-black font-bold">
+        <router-link
+          to="/addRecipe"
+          class="hover:text-red-500 transition"
+          exact-active-class="text-black font-bold"
+        >
           Добавить
         </router-link>
       </nav>
 
-      
       <button class="md:hidden text-2xl" @click="toggleMenu">☰</button>
     </div>
 
- 
     <transition name="slide">
       <ul
         v-if="isMenuOpen"
@@ -60,50 +69,55 @@
       </ul>
     </transition>
 
-    
     <transition name="fade">
-      <div v-if="isSearchOpen" class="absolute top-16 left-0 w-full bg-white shadow-md p-4 flex items-center">
+      <div
+        v-if="isSearchOpen"
+        class="absolute top-16 left-0 w-full bg-white shadow-md p-4 flex items-center"
+      >
         <input
           v-model="searchQuery"
           placeholder="Найти рецепт..."
           type="text"
           @keyup.enter="search"
-          class="w-full p-2 pl-4 pr-10 border rounded-full focus:ring-2 focus:ring-amber-400"
+          class="w-full p-2 pl-4 pr-10 border rounded-full focus:ring-2 focus:ring-amber-400 g"
         />
         <button @click="search" class="ml-2 text-2xl hover:scale-110 transition">🔍</button>
+        <div class="close" @click="toggleSearch">❌</div>
       </div>
     </transition>
   </header>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { useRouter } from "vue-router";
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
-const isMenuOpen = ref(false);
-const isSearchOpen = ref(false);
-const searchQuery = ref("");
-const router = useRouter();
+const isMenuOpen = ref(false)
+const isSearchOpen = ref(false)
+const searchQuery = ref('')
+const router = useRouter()
 const toggleMenu = () => {
-  isMenuOpen.value = !isMenuOpen.value;
-};
+  isMenuOpen.value = !isMenuOpen.value
+}
 
 const toggleSearch = () => {
-  isSearchOpen.value = !isSearchOpen.value;
-};
+  isSearchOpen.value = !isSearchOpen.value
+}
 
 const search = () => {
   if (searchQuery.value.trim()) {
-    router.push({ name: "search", query: { q: searchQuery.value } });
-    isSearchOpen.value = false; 
+    router.push({ name: 'search', query: { q: searchQuery.value } })
+    isSearchOpen.value = false
   }
-};
+}
 </script>
 
 <style scoped>
 .slide-enter-active,
 .slide-leave-active {
-  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+  transition:
+    transform 0.3s ease-out,
+    opacity 0.3s ease-out;
 }
 .slide-enter-from,
 .slide-leave-to {
